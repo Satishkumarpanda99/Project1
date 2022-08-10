@@ -1,11 +1,11 @@
 pipeline {
     agent any
+    
     tools {
         maven 'local_maven'
     }
-
     parameters {
-         string(name: 'tomcat_stag', defaultValue: '35.154.81.229', description: 'Tomcat Staging Server')
+         string(name: 'staging_server', defaultValue: '13.126.48.59', description: 'Remote Staging Server')
     }
 
 stages{
@@ -16,19 +16,21 @@ stages{
             post {
                 success {
                     echo 'Archiving the artifacts'
-                    archiveArtifacts artifacts: '**/*.war'
+                    archiveArtifacts artifacts: '**/target/*.war'
                 }
             }
         }
 
         stage ('Deployments'){
-                stage ('Deploy to Staging Server'){
+            parallel{
+                stage ("Deploy to Staging"){
                     steps {
                         sshagent(['b0962c0e-e3d6-4ff1-8cca-7a282bad7546']) {
-                        sh "scp **/*.war jenkins@${params.tomcat_stag}:/usr/share/tomcat/webapps"
+                        sh "scp **/*.war jenkins@${params.tomcat_stag}:/opt/tomcat/webapps"
       }
                     }
                 }
             }
         }
     }
+}
