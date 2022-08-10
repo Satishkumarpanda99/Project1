@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'localMaven'
+        maven 'local_maven'
     }
 
     parameters {
@@ -24,7 +24,9 @@ stages{
         stage ('Deployments'){
                 stage ('Deploy to Staging Server'){
                     steps {
+                        sshagent(['b0962c0e-e3d6-4ff1-8cca-7a282bad7546']) {
                         sh "scp **/*.war jenkins@${params.tomcat_stag}:/usr/share/tomcat/webapps"
+      }
                     }
                 }
             }
