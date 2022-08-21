@@ -14,7 +14,7 @@ stages{
                     archiveArtifacts artifacts: '**/target/*.war'
           emailext body: 'Test Message',
     subject: 'Test Subject',
-    to: 'jyoti.swain123@gmail.com'
+    to: 'jyoti.swain123@gmail.cm'
                 }
             }
         }
