@@ -1,8 +1,5 @@
 pipeline {
-    agent {
-        label 'windows'
-    }
-    
+    agent any
     tools {
         maven 'local_maven'
     }
@@ -15,6 +12,9 @@ stages{
                 success {
                     echo 'Archiving the artifacts'
                     archiveArtifacts artifacts: '**/target/*.war'
+                    emailext body: 'Test Message',
+    recipientProviders: [developers(), requestor()],
+    subject: 'Test Subject'
                 }
             }
         }
