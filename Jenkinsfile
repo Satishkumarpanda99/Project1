@@ -17,6 +17,7 @@ stages{
                 emailext body: 'Congratulation build is success.', subject: 'Test', to: 'jyoti.swain123@gmail.com'
                 }
             }
+            }
         }
 
         stage ('Deployments'){
