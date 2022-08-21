@@ -13,7 +13,7 @@ stages{
                     echo 'Archiving the artifacts'
                     archiveArtifacts artifacts: '**/target/*.war'
                       }
-                Failure {
+                Unstable {
                 emailext body: 'Congratulation build is success.', subject: 'Test', to: 'jyoti.swain123@gmail.com'
                 }
             }
