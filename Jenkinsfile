@@ -18,7 +18,11 @@ stages{
         }
         stage ('Deployments'){
             steps {
-            echo 'successful Deploy'
+                try {
+                    withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+    // some block
+}
+                }
             }
         }
     }
