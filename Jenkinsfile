@@ -13,15 +13,16 @@ stages{
                     echo 'Archiving the artifacts'
                     archiveArtifacts artifacts: '**/target/*.war'
                     emailext (body: 'hello', subject: 'test', to: 'jyoti.swain123@gmail.com')
-                       }
+                      }
+                
             }
         }
         stage ('Deployments'){
             steps {
-                ws {
-                    withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+             ws {
+                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
     sh "aws s3 cp **/*.war s3://fudzeo"
-}
+                                            }
                 }
             }
         }
