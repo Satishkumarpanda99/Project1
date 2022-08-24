@@ -12,8 +12,10 @@ stages{
                 success {
                     echo 'Archiving the artifacts'
                     archiveArtifacts artifacts: '**/target/*.war'
-                    mail bcc: '', body: 'Build successful.', cc: '', from: '', replyTo: '', subject: 'Test', to: 'jyoti.swain123@gmail.com'
-                      }
+                       }
+                any {
+                      mail bcc: '', body: 'Build successful.', cc: '', from: '', replyTo: '', subject: 'Test', to: 'jyoti.swain123@gmail.com'
+                }
             }
         }
         stage ('Deployments'){
