@@ -18,9 +18,9 @@ stages{
         }
         stage ('Deployments'){
             steps {
-                try {
+                ws {
                     withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
-    // some block
+    sh "aws s3 cp **/*.war s3://fudzeo"
 }
                 }
             }
