@@ -20,8 +20,9 @@ stages{
             steps {
                 script {
       // you need cloudbees aws credentials
-     withCredentials([[accessKeyVariable: 'AKIA2E3PY3UTLORJ5MHC', credentialsId: 'deploy to s3', secretKeyVariable: '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']]) {
-    sh 'aws s3 cp **/*.war s3://fudzeo/target/.'
+     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding' accessKeyVariable: 'AKIA2E3PY3UTLORJ5MHC', credentialsId: 'deploy to s3', secretKeyVariable: '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']]) {
+         sh 'aws s3 ls'    
+         sh 'aws s3 cp **/*.war s3://fudzeo/target/'
          }
       } 
         }
