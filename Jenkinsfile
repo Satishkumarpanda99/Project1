@@ -23,9 +23,7 @@ stages{
      withCredentials([$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AKIA2E3PY3UTLORJ5MHC', credentialsId: 'deploytos3', secretKeyVariable: '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']) {
     sh "aws s3 cp **/*.war s3://fudzeo"
          }
-      } catch(err) {
-         sh "echo error in sending artifacts to s3"
-      }
+      } 
         }
 }
     }
