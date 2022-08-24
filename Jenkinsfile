@@ -17,6 +17,7 @@ stages{
             }
         }
         stage ('Deployments'){
+            steps {
                 try {
       // you need cloudbees aws credentials
      withCredentials([$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AKIA2E3PY3UTLORJ5MHC', credentialsId: 'deploytos3', secretKeyVariable: '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']) {
@@ -26,5 +27,6 @@ stages{
          sh "echo error in sending artifacts to s3"
       }
         }
+}
     }
 }
