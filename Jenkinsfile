@@ -18,13 +18,14 @@ stages{
             }
         }
         stage ('Deployments'){
-            steps {
-                script {
-                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+                try {
+      // you need cloudbees aws credentials
+      withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
     sh "aws s3 cp **/*.war s3://fudzeo"
-                                            }
-            }
-            }
+         }
+      } catch(err) {
+         sh "echo error in sending artifacts to s3"
+      }
         }
     }
 }
