@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'windows'
+        label 'linux'
     }
     
     tools {
@@ -9,7 +9,7 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
