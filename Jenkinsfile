@@ -1,6 +1,6 @@
 pipeline {
     tools {
-        maven local_maven
+        maven 'local_maven'
     }
 stages {
     stage ('Build') {
