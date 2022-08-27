@@ -1,28 +1,44 @@
 pipeline {
-    agent {
-        label 'linux'
-    }
-    
     tools {
-        maven 'local_maven'
+        maven local_maven
     }
-stages{
-        stage('Build'){
-            steps {
-                sh 'mvn clean package'
-            }
-            post {
-                success {
-                    echo 'Archiving the artifacts'
-                    archiveArtifacts artifacts: '**/target/*.war'
+stages {
+    stage ('Build') {
+        parallel {
+            stage ('Build server-1') {
+                agent {
+                    label 'linux'
                 }
+                steps {
+           sh 'mvn clean package'
+        }
+        post{
+            success {
+                echo 'Archiving the artifacts'
+                archiveArtifacts artifacts: '**/*.war'
             }
         }
-
-        stage ('Deployments'){
-            steps {
-            echo 'successful Deploy'
+            }
+            stage ('ProductionBuild sever-2') {
+                agent {
+                    label 'linux2'
+                }
+                steps {
+           sh 'mvn clean package'
+        }
+        post{
+            success {
+                echo 'Archiving the artifacts'
+                archiveArtifacts artifacts: '**/*.war'
+            }
+        }
             }
         }
     }
+    stage ('deployment') {
+        steps {
+            echo 'successful'
+        }
+    }
+ }
 }
