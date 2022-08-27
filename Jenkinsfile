@@ -26,7 +26,7 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts '**/*.war'
+                    archiveArtifacts '**/target/*.war'
                     sh 'aws configure set region ap-south-1'
                     sh 'aws s3 cp .**/*.war s3://fudzeo'
                 }
