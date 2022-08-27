@@ -1,31 +1,32 @@
 pipeline {
-    agent any
+    agent any 
     tools {
         maven 'local_maven'
     }
-stages{
-        stage('Build'){
+
+     environment {
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+    }      
+
+    stages {
+        stage('Build') {
+            echo 'build'
+        }
+        stage('Test') {
+           echo 'test'
+        }
+        stage('Publish') {
             steps {
-                sh 'mvn clean package'
-                }
+                sh 'mvn package'
+            }
             post {
                 success {
-                    echo 'Archiving the artifacts'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                    emailext (body: 'hello', subject: 'test', to: 'jyoti.swain123@gmail.com')
-                      }
+                    archiveArtifacts '**/*.war'
+                    sh 'aws configure set region ap-south-1'
+                    sh 'aws s3 cp .**/*.war s3://fudzeo'
+                }
             }
         }
-        stage ('Deployments'){
-            steps {
-                script {
-      // you need cloudbees aws credentials
-     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AKIA2E3PY3UTLORJ5MHC', credentialsId: 'deploy to s3', secretKeyVariable: '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']]) {
-         sh 'aws s3 ls'
-         sh 'aws s3 cp **/*.war s3://fudzeo/target/'
-         }
-      } 
-        }
-}
     }
 }
