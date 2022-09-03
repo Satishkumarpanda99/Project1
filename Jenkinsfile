@@ -16,7 +16,7 @@ stages{
         }
 
         stage ('Deployments'){
-                stage ('Deploy to Staging Server'){
+                steps {
                     script {
                         deploy ()
                     }
