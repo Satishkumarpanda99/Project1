@@ -12,8 +12,11 @@ stages{
                 success {
                     echo 'Archiving the artifacts'
                     archiveArtifacts artifacts: '**/target/*.war'
-                    emailext body: 'email test', subject: 'test', to: 'jyoti.swain123@gmail.com'
+                    emailext attachLog: true, body: 'Success build', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'jyoti.swain123@gmail.com'
                        }
+                failure {
+                    emailext attachLog: true, body: 'faild build', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'jyoti.swain123@gmail.com'
+                }
             }
         }
         stage ('Deployments'){
