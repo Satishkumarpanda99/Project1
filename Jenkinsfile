@@ -1,30 +1,29 @@
+@Library('Jenkins-SharedLib') _
 pipeline {
     agent any
     tools {
         maven 'localMaven'
     }
 
-    parameters {
-         string(name: 'tomcat_stag', defaultValue: '35.154.81.229', description: 'Tomcat Staging Server')
-    }
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+    }      
 
 stages{
         stage('Build'){
             steps {
-                sh 'mvn clean package'
-            }
-            post {
-                success {
-                    echo 'Archiving the artifacts'
-                    archiveArtifacts artifacts: '**/*.war'
+                script {
+                    build ()    
                 }
             }
+           
         }
 
         stage ('Deployments'){
                 stage ('Deploy to Staging Server'){
-                    steps {
-                        sh "scp **/*.war jenkins@${params.tomcat_stag}:/usr/share/tomcat/webapps"
+                    script {
+                        deploy ()
                     }
                 }
             }
