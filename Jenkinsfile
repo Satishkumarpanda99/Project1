@@ -1,4 +1,4 @@
-@Library('My-Jenkins-SharedLibrary') _
+@Library('Jenkins-SharedLib') _
 pipeline {
     agent any
     tools {
@@ -18,7 +18,7 @@ stages{
         stage ('Deployments'){
                 stage ('Deploy to Staging Server'){
                     script {
-                        deployDemo ()
+                        deploy ()
                     }
                 }
             }
