@@ -12,7 +12,7 @@ stages{
                 success {
                     echo 'Archiving the artifacts'
                     archiveArtifacts artifacts: '**/target/*.war'
-                    emailext body: 'email send', subject: 'test email', to: 'jyoti.swain123@gmail.com'
+                    emailext body: 'email test', subject: 'test', to: 'jyoti.swain123@gmail.com'
                        }
             }
         }
