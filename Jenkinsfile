@@ -12,7 +12,6 @@ stages{
                     build ()    
                 }
             }
-           
         }
 
         stage ('Deployments'){
