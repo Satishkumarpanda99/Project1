@@ -19,11 +19,10 @@ stages{
 
     stage ('Deployments'){
                     steps {
-                        sshagent(['b0962c0e-e3d6-4ff1-8cca-7a282bad7546']) {
+                        deploy adapters: [tomcat7(credentialsId: 'c7e47893-145b-4a87-8186-7b0c5fa25310', path: '', url: 'http://13.233.5.122:8282/')], contextPath: null, war: '**/*.war'
                             script {
                                  deploy_tomcat ()
                             }
-      }
                     }
         }
     }
