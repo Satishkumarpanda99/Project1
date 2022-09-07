@@ -1,24 +1,24 @@
-@Library('Jenkins-SharedLib@main') _
 pipeline {
     agent any
-    
     tools {
-        maven 'local_maven'
+        maven local_maven
     }
-stages{
-        stage('Build'){
-            steps {
-                script {
-                  build ()
-                }
+stages {
+    stage ('Build') {
+        steps {
+           sh 'mvn clean package'
+        }
+        post{
+            success {
+                echo 'Archiving the artifacts'
+                archiveArtifacts artifacts: '**/*.war'
             }
         }
-
-    stage ('Deployments'){
-                    steps {
-                        deploy adapters: [tomcat7(credentialsId: '8d79c1e7-8b52-4552-9750-fb9f306df2a6', path: '', url: 'http://3.111.198.203:8282/')], contextPath: null, war: '**/*.war'
-                            
-                    }
+    }
+    stage ('Deployment') {
+        steps {
+            deploy adapters: [tomcat7(credentialsId: '78022f04-c7fa-45bb-851e-f6bb3b7e3ff0', path: '', url: 'http://3.111.198.203:8282/')], contextPath: null, war: '**/*.war'
         }
     }
+ }
 }
