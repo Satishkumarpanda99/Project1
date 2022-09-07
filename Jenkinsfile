@@ -3,6 +3,9 @@ pipeline {
     tools {
         maven 'local_maven'
     }
+    triggers {
+    pollSCM ('* * * * *')
+    }
 stages {
     stage ('Build') {
         steps {
