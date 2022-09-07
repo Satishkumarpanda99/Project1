@@ -15,7 +15,7 @@ stages {
     stage ('Deployment') {
         steps {
             script {
-            deploy_tomcat ()
+            deploy_tomcat ().call
             }
         }
     }
