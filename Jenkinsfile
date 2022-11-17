@@ -21,7 +21,7 @@ pipeline {
         post {
             success {
                 echo 'archiving artifacts'
-                archiveArtifacts artifacts: '**/target*.war'
+                archiveArtifacts artifacts: '**/target/*.war'
                 sh 'aws configure set region ap-south-1'
                 sh 'aws s3 cp ./target/*.war s3://fudzeo'
                 emailext attachLog: true, body: 'success build ', subject: 'jenkins-success', to: 'j.jyotiranjan29@gmail.com'
