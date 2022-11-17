@@ -7,7 +7,7 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
-    parametars {
+    parameters {
         string (name: 'tomcat', defaultvalue: '13.233.76.195', description: 'deployment')
     }   
     triggers {
