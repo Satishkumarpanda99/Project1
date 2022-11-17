@@ -7,9 +7,6 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
-    parameters {
-        string(name: 'tomcat_stag', defaultValue: '13.233.76.195', description: 'Node1-Remote Staging Server')
-    }   
     triggers {
         pollSCM('* * * * *')
     }
@@ -34,7 +31,7 @@ pipeline {
         stage ('deploye') {
             steps {
                 sshagent(['deploy-tomcat']) {
-                    sh "scp -v -o StrictHostKeyChecking=no **/*.war ec2-user@${perams.tomcat}:/opt/tomcat/webapps/"
+                    sh "scp -v -o StrictHostKeyChecking=no **/*.war ec2-user@13.233.76.195:/opt/tomcat/webapps/"
       }
             }
         }
