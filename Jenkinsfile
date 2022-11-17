@@ -8,7 +8,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
     parameters {
-        string (name: 'tomcat', defaultvalue: '13.233.76.195', description: 'deployment')
+        string(name: 'tomcat', defaultvalue: '13.233.76.195', description: 'deployment')
     }   
     triggers {
         pollSCM('* * * * *')
