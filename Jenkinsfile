@@ -10,7 +10,7 @@ pipeline {
     parametars {
         string (name: 'tomcat', defaultvalue: '13.233.76.195', description: 'deployment')
     }   
-    trigger {
+    triggers {
         pollSCM('* * * * *')
     }
     stages {
