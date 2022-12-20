@@ -11,13 +11,13 @@
             <table border="0" width="30%" cellpadding="3">
                 <thead>
                     <tr>
-                        <th colspan="2">Login Page - V1.1</th>
+                        <th colspan="2">Login Page - V1.2</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Username</td>
-                        <td><input type="text" name="userName" value="" /></td>
+                        <td><input type="text" name="userNam" value="" /></td>
                     </tr>
                     <tr>
                         <td>Password</td>
