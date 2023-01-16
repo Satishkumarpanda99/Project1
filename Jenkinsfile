@@ -20,7 +20,10 @@ stages{
         steps {
     withSonarQubeEnv('sonarqube-9.8') { 
       // You can override the credential to be used
-      sh 'mvn sonar:sonar'
+      sh 'mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=demo-project \
+  -Dsonar.host.url=http://13.232.158.245:9000 \
+  -Dsonar.login=sqp_ec8638cc383ef13e6be8b950592b51af932363c2'
     }
     }
   }
