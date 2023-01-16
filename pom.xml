@@ -26,10 +26,11 @@
 	</dependencies>
 	<build>
 		<finalName>LoginWebApp</finalName>
-	</build>
-	<plugin>
+		<plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>sonar-maven-plugin</artifactId>
-    <version>4.8.0</version>
+    <version>3.0.2</version>
 </plugin>
+	</build>
+
 </project>
