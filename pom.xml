@@ -25,7 +25,9 @@
 		</dependency> 
 	</dependencies>
 	<build>
- <settings>
+<finalName>LoginWebApp</finalName>
+	</build>
+	<settings>
     <pluginGroups>
         <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
     </pluginGroups>
@@ -42,6 +44,5 @@
         </profile>
      </profiles>
 </settings>
-	</build>
 
 </project>
