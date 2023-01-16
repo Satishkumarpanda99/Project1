@@ -25,15 +25,23 @@
 		</dependency> 
 	</dependencies>
 	<build>
- <pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.sonar</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>3.9.1.2184</version>
-      </plugin>
-    </plugins>
-  </pluginManagement>
+ <settings>
+    <pluginGroups>
+        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+    </pluginGroups>
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Enter your SonarQube instance URL here -->
+                <sonar.host.url>http://13.232.158.245:9000</sonar.host.url>
+            </properties>
+        </profile>
+     </profiles>
+</settings>
 	</build>
 
 </project>
