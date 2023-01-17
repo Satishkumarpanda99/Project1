@@ -7,7 +7,7 @@ pipeline {
 stages{
     stage('Build'){
             steps {
-                sh 'mvn clean package'
+                sh 'mvn -s settings.xml -DeskipTests install'
             }
             post {
                 success {
@@ -16,6 +16,16 @@ stages{
                 }
             }
         }
+    stage('Test') {
+        steps {
+           sh 'mvn -s settings.xml test'
+        }
+    }
+    stage('Checkstyle Analysis') {
+        steps {
+           sh 'mvn -s settings.xml checkstyle:checkstyle'
+        }
+    }
     stage('SonarQube analysis') {
         steps {
     withSonarQubeEnv('sonarqube-9.8') { 
