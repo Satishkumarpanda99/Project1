@@ -5,7 +5,7 @@ pipeline {
         maven 'local_maven'
     }
 stages{
-    stage('Test') {
+    stage('junit_Test') {
             steps {
                 sh 'mvn test'
             }
