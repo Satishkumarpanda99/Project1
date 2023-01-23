@@ -5,13 +5,14 @@ pipeline {
         maven 'local_maven'
     }
 stages{
-    stage('junit_Test') {
+stage('junit_Test') {
             steps {
-                sh 'mvn test'
+                sh 'pip install pytest-junit'
+                sh 'python -m pytest --junitxml=junit.xml'
             }
             post {
                 always {
-                    junit '**/target/surefire-reports/*.xml'
+                    junit 'junit.xml'
                 }
             }
         }
