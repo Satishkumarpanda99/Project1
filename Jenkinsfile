@@ -17,7 +17,9 @@ stages {
     }
     stage ('deploy'){
         steps{
-            echo 'deploy success'
+            sshagent(['ubuntu-tomcat']) {
+    sh "scp -v -o StrictHostKeyChecking=no **/*.war ubuntu@3.109.202.2:/opt/tomcat/webapps/"
+}
         }
     }
 }
