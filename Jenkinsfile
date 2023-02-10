@@ -1,33 +1,29 @@
 pipeline {
     agent any
     tools {
-        maven 'localMaven'
+        maven 'local_maven'
     }
-
-    parameters {
-         string(name: 'tomcat_stag', defaultValue: '35.154.81.229', description: 'Tomcat Staging Server')
-    }
-
-stages{
-        stage('Build'){
-            steps {
-                sh 'mvn clean package'
-            }
-            post {
-                success {
-                    echo 'Archiving the artifacts'
-                    archiveArtifacts artifacts: '**/*.war'
-                }
-            }
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+    }      
+stages {
+    stage('build') {
+        steps{
+            sh 'mvn clean package'
         }
-
-        stage ('Deployments'){
-                stage ('Deploy to Staging Server'){
-                    steps {
-                        sh "scp **/*.war jenkins@${params.tomcat_stag}:/usr/share/tomcat/webapps"
-                    }
-                }
+        post {
+            success {
+                    archiveArtifacts 'target/*.war'
+                    sh 'aws configure set region ap-south-1'
+                    sh 'aws s3 cp ./target/*.war s3://fudzeo'
             }
         }
     }
+    stage ('deploy'){
+        steps{
+          echo 'deploy success'
+        }
+    }
+}
 }
