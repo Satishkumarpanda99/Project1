@@ -12,10 +12,10 @@ stages{
                 success {
                     echo 'Archiving the artifacts'
                     archiveArtifacts artifacts: '**/target/*.war'
-                    emailext attachLog: true, body: 'success build', subject: 'jenkins-success', to: 'j.yotiranjan29@gmail.com'
+                    emailext attachLog: true, body: 'success build', subject: 'jenkins-success', to: 'jyoti.swain123@gmail.com'
                        }
                 failure {
-                    emailext attachLog: true, body: 'failure build', subject: 'jenkins-failure', to: 'j.yotiranjan29@gmail.com'
+                    emailext attachLog: true, body: 'failure build', subject: 'jenkins-failure', to: 'jyoti.swain123@gmail.com'
                 }
             }
         }
