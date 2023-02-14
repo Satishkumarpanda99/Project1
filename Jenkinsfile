@@ -3,27 +3,26 @@ pipeline {
     tools {
         maven 'local_maven'
     }
-    environment {
-        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
-    }      
-stages {
-    stage('build') {
-        steps{
-            sh 'mvn clean package'
+stages{
+        stage('Build'){
+            steps {
+                sh 'mvn clean package'
+                }
+            post {
+                success {
+                    echo 'Archiving the artifacts'
+                    archiveArtifacts artifacts: '**/target/*.war'
+                emailext attachLog: true, body: 'congratulation your build is successful', subject: 'successful build', to: 'personldata@gmail.com'
+                       }
+                failure {
+                emailext attachLog: true, body: 'sorry your build is successful', subject: 'faild build', to: 'personldata@gmail.com'   
+                }
+                }
         }
-        post {
-            success {
-                    archiveArtifacts 'target/*.war'
-                    sh 'aws configure set region ap-south-1'
-                    sh 'aws s3 cp ./target/*.war s3://fudzeo'
+        stage ('Deployments'){
+            steps {
+            echo 'successful Deploy'
             }
         }
     }
-    stage ('deploy'){
-        steps{
-          echo 'deploy success'
-        }
-    }
-}
 }
