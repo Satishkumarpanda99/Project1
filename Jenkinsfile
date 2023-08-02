@@ -23,7 +23,7 @@ pipeline {
         stage("Check out") {
             steps {
                 script {
-                    git branch: 'feature/nexusUpload', url: 'https://github.com/JyotiRanSwain/LoginWebApp.git';
+                    git branch: 'dev2.9', url: 'https://github.com/JyotiRanSwain/LoginWebApp.git';
                 }
             }
         }
