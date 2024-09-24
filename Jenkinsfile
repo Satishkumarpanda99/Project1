@@ -20,7 +20,7 @@ stages{
         stage ('Deployments'){
                              steps {
                        sshagent(['Tomcat']) {
-     sh "scp -v -o StrictHostKeyChecking=no **/*.war ec2-user@13.201.61.5:/opt/tomcat/webapps/"
+     sh "sudo scp -v -o StrictHostKeyChecking=no **/*.war ec2-user@13.201.61.5:/opt/tomcat/webapps/"
 }
                       
       
