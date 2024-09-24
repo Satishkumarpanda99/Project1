@@ -10,11 +10,6 @@ pipeline {
     }      
 
     stages {
-         stage('Git checkout') {
-            steps {
-                git branch: 'dev1.5', url: 'https://github.com/Satishkumarpanda99/Project1.git'
-            }
-        }
         stage('Build') {
             steps {
                 echo 'Building the application...'
