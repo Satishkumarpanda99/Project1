@@ -4,35 +4,50 @@ pipeline {
         maven 'Maven'
     }
 
-     environment {
+    environment {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }      
 
     stages {
         stage('Build') {
-            steps{
-            echo 'build'
+            steps {
+                echo 'Building the application...'
+                // Include your build commands here if needed
             }
         }
+        
         stage('Test') {
             steps {
-           echo 'test'
+                echo 'Running tests...'
+                // Include your test commands here if needed
             }
         }
+        
         stage('Publish') {
             steps {
+                echo 'Packaging the application...'
                 sh 'mvn package'
             }
-             stage('aws cli install') {
+        }
+
+        stage('AWS CLI Install') {
             steps {
-                sh 'sudo yum install awscli'
+                echo 'Installing AWS CLI...'
+                sh 'sudo yum install -y aws-cli' // Added -y for automatic yes
+            }
+        }
+        
+        stage('Upload to S3') {
+            steps {
+                echo 'Configuring AWS and uploading artifact...'
+                sh 'aws configure set region ap-south-1'
+                sh 'aws s3 cp ./target/*.war s3://jenkinsucket01'
             }
             post {
                 success {
-                    archiveArtifacts 'target/*.war'
-                    sh 'aws configure set region ap-south-1'
-                    sh 'aws s3 cp ./target/*.war s3://jenkinsucket01'
+                    echo 'Archiving artifacts...'
+                    archiveArtifacts artifacts: 'target/*.war', fingerprint: true
                 }
             }
         }
