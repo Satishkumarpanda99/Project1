@@ -31,16 +31,7 @@ pipeline {
             }
         }
 
-        stage('Install AWS CLI') {
-            steps {
-                echo 'Installing AWS CLI...'
-                sh '''
-                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-                    unzip -o awscliv2.zip
-                    ./aws/install
-                '''
-            }
-        }
+       
         
         stage('Upload to S3') {
             steps {
