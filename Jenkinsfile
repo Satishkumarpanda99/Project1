@@ -24,6 +24,10 @@ pipeline {
             steps {
                 sh 'mvn package'
             }
+             stage('aws cli install') {
+            steps {
+                sh 'sudo yum install awscli'
+            }
             post {
                 success {
                     archiveArtifacts 'target/*.war'
