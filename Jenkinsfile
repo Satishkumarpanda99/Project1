@@ -13,14 +13,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                // Include your build commands here if needed
+                sh 'mvn clean install' // Include your build command here
             }
         }
         
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                // Include your test commands here if needed
+                sh 'mvn test' // Include your test command here
             }
         }
         
@@ -34,7 +34,11 @@ pipeline {
         stage('AWS CLI Install') {
             steps {
                 echo 'Installing AWS CLI...'
-                sh 'sudo yum install aws-cli -y' // Added -y for automatic yes
+                sh '''
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                    unzip awscliv2.zip
+                    sudo ./aws/install
+                '''
             }
         }
         
