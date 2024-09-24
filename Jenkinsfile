@@ -34,7 +34,7 @@ pipeline {
         stage('AWS CLI Install') {
             steps {
                 echo 'Installing AWS CLI...'
-                sh 'sudo yum install -y aws-cli' // Added -y for automatic yes
+                sh 'sudo yum install aws-cli -y' // Added -y for automatic yes
             }
         }
         
